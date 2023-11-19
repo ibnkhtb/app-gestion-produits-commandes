@@ -1,0 +1,25 @@
+{
+  "applications": "*",
+  "changelogDate": "20231119130819",
+  "dto": "mapstruct",
+  "entityTableName": "categorie",
+  "fields": [
+    {
+      "fieldName": "idCategorie",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "nomCategorie",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Categorie",
+  "pagination": "pagination",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

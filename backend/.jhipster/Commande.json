@@ -1,0 +1,32 @@
+{
+  "applications": "*",
+  "changelogDate": "20231119131119",
+  "dto": "mapstruct",
+  "entityTableName": "commande",
+  "fields": [
+    {
+      "fieldName": "idCommande",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "dateCommande",
+      "fieldType": "Instant"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Commande",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "client",
+      "relationshipName": "client",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

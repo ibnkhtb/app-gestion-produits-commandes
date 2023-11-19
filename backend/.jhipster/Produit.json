@@ -1,0 +1,50 @@
+{
+  "applications": "*",
+  "changelogDate": "20231119130919",
+  "dto": "mapstruct",
+  "entityTableName": "produit",
+  "fields": [
+    {
+      "fieldName": "idProduit",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "nomProduit",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "descriptionProduit",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "prixProduit",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "imageProduit",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Produit",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "categorie",
+      "relationshipName": "categorie",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "commande",
+      "relationshipName": "commande",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

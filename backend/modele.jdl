@@ -1,0 +1,53 @@
+// Déclaration des entités
+entity Categorie{
+    @Id
+    idCategorie Long,
+    nomCategorie String 
+}
+entity Produit{
+    @Id
+    idProduit Long,
+    nomProduit String ,
+    descriptionProduit String ,
+    prixProduit Double ,
+    imageProduit String
+} 
+entity Client {
+    @Id
+    idClient Long,
+    nom String ,
+    prenom String ,
+    adresse String ,
+    telephone  String ,
+    email String
+}
+
+entity Commande {
+    @Id
+    idCommande Long,
+    dateCommande Instant 
+}
+
+// Relations
+relationship ManyToOne {
+    Produit{categorie} to Categorie
+}
+
+relationship OneToOne {
+    Client{user} to User with builtInEntity
+}
+
+relationship ManyToOne {
+    Commande{client} to Client
+}
+
+relationship ManyToOne {
+    Produit{commande} to Commande
+}
+
+
+
+paginate * with pagination
+dto * with mapstruct
+service all with serviceClass
+filter *
