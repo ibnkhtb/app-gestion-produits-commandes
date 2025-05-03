@@ -4,8 +4,6 @@
 
 Cette application web permet aux utilisateurs de consulter des produits, passer des commandes, et aux administrateurs de suivre l'activité globale. Elle comprend deux espaces distincts : un espace utilisateur et un espace administrateur.
 
-L’application a été générée à l’aide de **JHipster**, permettant une base solide pour le développement back-end et front-end.
-
 ---
 
 ## Fonctionnalités principales
@@ -20,24 +18,23 @@ L’application a été générée à l’aide de **JHipster**, permettant une b
 ### Espace administrateur :
 - Authentification dédiée
 - Visualisation de toutes les commandes passées
-- Suivi des produits commandés
+- Ajout de nouveaux produits
 
 ---
 
 ## Technologies utilisées
 
-- **Front-end** : React (généré avec JHipster)
-- **Back-end** : Spring Boot (JHipster), JPA/Hibernate
-- **Base de données** : H2 (développement)
-- **Sécurité** : Spring Security
-
+- **Front-end** : React 
+- **Back-end** : Spring Boot, JPA/Hibernate
+- **Base de données** : Mysql
 ---
 
 ## Lancement de l’application
 
 ### Back-end :
-1. Ouvrir le projet avec un IDE compatible
-2. Lancer le back-end avec :
+ Lancer le back-end avec : mvwn
 
-```bash
-./mvnw
+### Front-end :
+ Lancer le front-end avec : npm start
+
+ 
