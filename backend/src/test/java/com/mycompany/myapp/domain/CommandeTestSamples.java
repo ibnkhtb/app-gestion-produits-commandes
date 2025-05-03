@@ -1,6 +1,7 @@
 package com.mycompany.myapp.domain;
 
 import java.util.Random;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class CommandeTestSamples {
@@ -9,14 +10,14 @@ public class CommandeTestSamples {
     private static final AtomicLong longCount = new AtomicLong(random.nextInt() + (2 * Integer.MAX_VALUE));
 
     public static Commande getCommandeSample1() {
-        return new Commande().idCommande(1L);
+        return new Commande().idCommande(1L).dateCommande("dateCommande1");
     }
 
     public static Commande getCommandeSample2() {
-        return new Commande().idCommande(2L);
+        return new Commande().idCommande(2L).dateCommande("dateCommande2");
     }
 
     public static Commande getCommandeRandomSampleGenerator() {
-        return new Commande().idCommande(longCount.incrementAndGet());
+        return new Commande().idCommande(longCount.incrementAndGet()).dateCommande(UUID.randomUUID().toString());
     }
 }

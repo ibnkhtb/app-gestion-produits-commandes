@@ -2,6 +2,7 @@ package com.mycompany.myapp.domain;
 
 import static com.mycompany.myapp.domain.ClientTestSamples.*;
 import static com.mycompany.myapp.domain.CommandeTestSamples.*;
+import static com.mycompany.myapp.domain.ProduitTestSamples.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.mycompany.myapp.web.rest.TestUtil;
@@ -33,5 +34,17 @@ class CommandeTest {
 
         commande.client(null);
         assertThat(commande.getClient()).isNull();
+    }
+
+    @Test
+    void produitTest() throws Exception {
+        Commande commande = getCommandeRandomSampleGenerator();
+        Produit produitBack = getProduitRandomSampleGenerator();
+
+        commande.setProduit(produitBack);
+        assertThat(commande.getProduit()).isEqualTo(produitBack);
+
+        commande.produit(null);
+        assertThat(commande.getProduit()).isNull();
     }
 }

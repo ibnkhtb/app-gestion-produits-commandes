@@ -2,8 +2,8 @@ package com.mycompany.myapp.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
-import java.time.Instant;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -18,17 +18,23 @@ public class Commande implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    //@NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_commande")
+    @Column(name = "id_commande", nullable = false)
     private Long idCommande;
 
-    @Column(name = "date_commande")
-    private Instant dateCommande;
+    @NotNull
+    @Column(name = "date_commande", nullable = false)
+    private String dateCommande;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties(value = { "user" }, allowSetters = true)
     private Client client;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnoreProperties(value = { "categorie" }, allowSetters = true)
+    private Produit produit;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -45,16 +51,16 @@ public class Commande implements Serializable {
         this.idCommande = idCommande;
     }
 
-    public Instant getDateCommande() {
+    public String getDateCommande() {
         return this.dateCommande;
     }
 
-    public Commande dateCommande(Instant dateCommande) {
+    public Commande dateCommande(String dateCommande) {
         this.setDateCommande(dateCommande);
         return this;
     }
 
-    public void setDateCommande(Instant dateCommande) {
+    public void setDateCommande(String dateCommande) {
         this.dateCommande = dateCommande;
     }
 
@@ -68,6 +74,19 @@ public class Commande implements Serializable {
 
     public Commande client(Client client) {
         this.setClient(client);
+        return this;
+    }
+
+    public Produit getProduit() {
+        return this.produit;
+    }
+
+    public void setProduit(Produit produit) {
+        this.produit = produit;
+    }
+
+    public Commande produit(Produit produit) {
+        this.setProduit(produit);
         return this;
     }
 

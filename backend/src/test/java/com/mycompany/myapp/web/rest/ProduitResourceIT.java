@@ -7,7 +7,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.mycompany.myapp.IntegrationTest;
 import com.mycompany.myapp.domain.Categorie;
-import com.mycompany.myapp.domain.Commande;
 import com.mycompany.myapp.domain.Produit;
 import com.mycompany.myapp.repository.ProduitRepository;
 import com.mycompany.myapp.service.dto.ProduitDTO;
@@ -138,6 +137,78 @@ class ProduitResourceIT {
         // Validate the Produit in the database
         List<Produit> produitList = produitRepository.findAll();
         assertThat(produitList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    @Transactional
+    void checkNomProduitIsRequired() throws Exception {
+        int databaseSizeBeforeTest = produitRepository.findAll().size();
+        // set the field null
+        produit.setNomProduit(null);
+
+        // Create the Produit, which fails.
+        ProduitDTO produitDTO = produitMapper.toDto(produit);
+
+        restProduitMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(produitDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Produit> produitList = produitRepository.findAll();
+        assertThat(produitList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkDescriptionProduitIsRequired() throws Exception {
+        int databaseSizeBeforeTest = produitRepository.findAll().size();
+        // set the field null
+        produit.setDescriptionProduit(null);
+
+        // Create the Produit, which fails.
+        ProduitDTO produitDTO = produitMapper.toDto(produit);
+
+        restProduitMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(produitDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Produit> produitList = produitRepository.findAll();
+        assertThat(produitList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkPrixProduitIsRequired() throws Exception {
+        int databaseSizeBeforeTest = produitRepository.findAll().size();
+        // set the field null
+        produit.setPrixProduit(null);
+
+        // Create the Produit, which fails.
+        ProduitDTO produitDTO = produitMapper.toDto(produit);
+
+        restProduitMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(produitDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Produit> produitList = produitRepository.findAll();
+        assertThat(produitList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkImageProduitIsRequired() throws Exception {
+        int databaseSizeBeforeTest = produitRepository.findAll().size();
+        // set the field null
+        produit.setImageProduit(null);
+
+        // Create the Produit, which fails.
+        ProduitDTO produitDTO = produitMapper.toDto(produit);
+
+        restProduitMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(produitDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Produit> produitList = produitRepository.findAll();
+        assertThat(produitList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -500,28 +571,6 @@ class ProduitResourceIT {
 
         // Get all the produitList where categorie equals to (categorieId + 1)
         defaultProduitShouldNotBeFound("categorieId.equals=" + (categorieId + 1));
-    }
-
-    @Test
-    @Transactional
-    void getAllProduitsByCommandeIsEqualToSomething() throws Exception {
-        Commande commande;
-        if (TestUtil.findAll(em, Commande.class).isEmpty()) {
-            produitRepository.saveAndFlush(produit);
-            commande = CommandeResourceIT.createEntity(em);
-        } else {
-            commande = TestUtil.findAll(em, Commande.class).get(0);
-        }
-        em.persist(commande);
-        em.flush();
-        produit.setCommande(commande);
-        produitRepository.saveAndFlush(produit);
-        Long commandeId = commande.getIdCommande();
-        // Get all the produitList where commande equals to commandeId
-        defaultProduitShouldBeFound("commandeId.equals=" + commandeId);
-
-        // Get all the produitList where commande equals to (commandeId + 1)
-        defaultProduitShouldNotBeFound("commandeId.equals=" + (commandeId + 1));
     }
 
     /**

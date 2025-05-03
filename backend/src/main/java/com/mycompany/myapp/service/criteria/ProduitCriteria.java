@@ -33,8 +33,6 @@ public class ProduitCriteria implements Serializable, Criteria {
 
     private LongFilter categorieId;
 
-    private LongFilter commandeId;
-
     private Boolean distinct;
 
     public ProduitCriteria() {}
@@ -46,7 +44,6 @@ public class ProduitCriteria implements Serializable, Criteria {
         this.prixProduit = other.prixProduit == null ? null : other.prixProduit.copy();
         this.imageProduit = other.imageProduit == null ? null : other.imageProduit.copy();
         this.categorieId = other.categorieId == null ? null : other.categorieId.copy();
-        this.commandeId = other.commandeId == null ? null : other.commandeId.copy();
         this.distinct = other.distinct;
     }
 
@@ -145,21 +142,6 @@ public class ProduitCriteria implements Serializable, Criteria {
         this.categorieId = categorieId;
     }
 
-    public LongFilter getCommandeId() {
-        return commandeId;
-    }
-
-    public LongFilter commandeId() {
-        if (commandeId == null) {
-            commandeId = new LongFilter();
-        }
-        return commandeId;
-    }
-
-    public void setCommandeId(LongFilter commandeId) {
-        this.commandeId = commandeId;
-    }
-
     public Boolean getDistinct() {
         return distinct;
     }
@@ -184,14 +166,13 @@ public class ProduitCriteria implements Serializable, Criteria {
             Objects.equals(prixProduit, that.prixProduit) &&
             Objects.equals(imageProduit, that.imageProduit) &&
             Objects.equals(categorieId, that.categorieId) &&
-            Objects.equals(commandeId, that.commandeId) &&
             Objects.equals(distinct, that.distinct)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idProduit, nomProduit, descriptionProduit, prixProduit, imageProduit, categorieId, commandeId, distinct);
+        return Objects.hash(idProduit, nomProduit, descriptionProduit, prixProduit, imageProduit, categorieId, distinct);
     }
 
     // prettier-ignore
@@ -204,7 +185,6 @@ public class ProduitCriteria implements Serializable, Criteria {
             (prixProduit != null ? "prixProduit=" + prixProduit + ", " : "") +
             (imageProduit != null ? "imageProduit=" + imageProduit + ", " : "") +
             (categorieId != null ? "categorieId=" + categorieId + ", " : "") +
-            (commandeId != null ? "commandeId=" + commandeId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }

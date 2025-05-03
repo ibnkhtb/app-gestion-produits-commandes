@@ -1,11 +1,25 @@
 id_produit;nom_produit;description_produit;prix_produit;image_produit
-1;lottery;once towards perfume;16593.66;saddle inasmuch as
-2;court;provided;804.09;deter voice likely
-3;source cicada;when eviscerate;1624.54;though eventually
-4;tut reclassify;provided perform anti;14363.29;aside
-5;slowly besides;huzzah;20931.03;wide-eyed
-6;indeed mammoth;given yuck;9291.27;outpace midst for
-7;simplistic;toward wonderfully;20191.76;waitress extremely
-8;learn;like weapon insure;13565.34;dearest quickly
-9;wedding;rankle scaly below;32242.17;oboe
-10;behind possible inferior;mammoth valiantly strictly;24224.78;showy demarcate
+1;Smartphone Samsung Galaxy S21;"Un excellent smartphone avec des fonctionnalités avancées";799.99;content/images/image1_1.jpg
+2;Ordinateur portable Dell XPS 13;"Un ordinateur portable puissant et léger";1299.99;content/images/image1_2.jpg
+3;Casque sans fil Sony WH-1000XM4;"Un casque audio haut de gamme avec réduction de bruit";349.99;content/images/image1_3.jpg
+4;Appareil photo Canon EOS R5;"Un appareil photo professionnel avec une résolution élevée";3499.99;content/images/image1_5.jpg
+
+5;Aspirateur;Aspirateur puissant pour la maison;149.99;content/images/imge2_1.jpg
+6;Réfrigérateur;Réfrigérateur grande capacité;499.99;content/images/img2_2.jpg
+7;Machine à Laver;Machine à laver automatique;349.99;content/images/img2_3.jpg
+8;Four Micro-ondes;Four micro-ondes avec fonction grill;129.99;content/images/img2_4.jpg
+
+9;Crème Hydratante;Hydratant pour peau sèche;29.99;content/images/img3_1.jpg
+10;Vitamines MultiVit;Complément alimentaire;19.99;content/images/img3_2.jpg
+11;Shampoing Revitalisant;Shampoing pour cheveux revitalisant;12.99;content/images/img3_3.jpg
+12;Masque Facial;Masque facial rafraîchissant;8.99;content/images/img3_4.jpg
+
+13;Chemise en Coton;Chemise élégante en coton;39.99;content/images/img4_1.jpg
+14;Montre Classique;Montre-bracelet classique en acier;79.99;content/images/img4_2.jpg
+15;Jeans Slim Fit;Jeans ajusté style slim;49.99;content/images/img4_3.jpg
+16;Chaussures en Cuir;Chaussures habillées en cuir;69.99;content/images/img4_4.jpg
+
+17;Robe d'Été;Robe légère pour l'été;59.99;content/images/img5_1.jpg
+18;Sac à Main Chic;Sac à main élégant pour toutes les occasions;49.99;content/images/img5_2.jpg
+19;Bottes Hautes;Bottes hautes en cuir pour l'hiver;89.99;content/images/img5_3.jpg
+20;Chapeau de Soleil;Chapeau de soleil pour une protection élégante;29.99;content/images/img5_4.jpg

@@ -6,6 +6,8 @@ import com.mycompany.myapp.service.CommandeService;
 import com.mycompany.myapp.service.criteria.CommandeCriteria;
 import com.mycompany.myapp.service.dto.CommandeDTO;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -62,7 +64,7 @@ public class CommandeResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("")
-    public ResponseEntity<CommandeDTO> createCommande(@RequestBody CommandeDTO commandeDTO) throws URISyntaxException {
+    public ResponseEntity<CommandeDTO> createCommande(@Valid @RequestBody CommandeDTO commandeDTO) throws URISyntaxException {
         log.debug("REST request to save Commande : {}", commandeDTO);
         if (commandeDTO.getIdCommande() != null) {
             throw new BadRequestAlertException("A new commande cannot already have an ID", ENTITY_NAME, "idexists");
@@ -87,7 +89,7 @@ public class CommandeResource {
     @PutMapping("/{idCommande}")
     public ResponseEntity<CommandeDTO> updateCommande(
         @PathVariable(value = "idCommande", required = false) final Long idCommande,
-        @RequestBody CommandeDTO commandeDTO
+        @Valid @RequestBody CommandeDTO commandeDTO
     ) throws URISyntaxException {
         log.debug("REST request to update Commande : {}, {}", idCommande, commandeDTO);
         if (commandeDTO.getIdCommande() == null) {
@@ -122,7 +124,7 @@ public class CommandeResource {
     @PatchMapping(value = "/{idCommande}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<CommandeDTO> partialUpdateCommande(
         @PathVariable(value = "idCommande", required = false) final Long idCommande,
-        @RequestBody CommandeDTO commandeDTO
+        @NotNull @RequestBody CommandeDTO commandeDTO
     ) throws URISyntaxException {
         log.debug("REST request to partial update Commande partially : {}, {}", idCommande, commandeDTO);
         if (commandeDTO.getIdCommande() == null) {
@@ -202,5 +204,13 @@ public class CommandeResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+    
+    
+    @GetMapping("/details")
+    public ResponseEntity<List<CommandeDTO>> getAllCommandeDetails() {
+        log.debug("REST request to get all Commande détails: {}");
+        List<CommandeDTO> commandeDTO = commandeService.findListCommandesDetaitls();
+         return ResponseEntity.ok().body(commandeDTO);
     }
 }

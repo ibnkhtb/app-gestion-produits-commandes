@@ -23,9 +23,11 @@ public class CommandeCriteria implements Serializable, Criteria {
 
     private LongFilter idCommande;
 
-    private InstantFilter dateCommande;
+    private StringFilter dateCommande;
 
     private LongFilter clientId;
+
+    private LongFilter produitId;
 
     private Boolean distinct;
 
@@ -35,6 +37,7 @@ public class CommandeCriteria implements Serializable, Criteria {
         this.idCommande = other.idCommande == null ? null : other.idCommande.copy();
         this.dateCommande = other.dateCommande == null ? null : other.dateCommande.copy();
         this.clientId = other.clientId == null ? null : other.clientId.copy();
+        this.produitId = other.produitId == null ? null : other.produitId.copy();
         this.distinct = other.distinct;
     }
 
@@ -58,18 +61,18 @@ public class CommandeCriteria implements Serializable, Criteria {
         this.idCommande = idCommande;
     }
 
-    public InstantFilter getDateCommande() {
+    public StringFilter getDateCommande() {
         return dateCommande;
     }
 
-    public InstantFilter dateCommande() {
+    public StringFilter dateCommande() {
         if (dateCommande == null) {
-            dateCommande = new InstantFilter();
+            dateCommande = new StringFilter();
         }
         return dateCommande;
     }
 
-    public void setDateCommande(InstantFilter dateCommande) {
+    public void setDateCommande(StringFilter dateCommande) {
         this.dateCommande = dateCommande;
     }
 
@@ -86,6 +89,21 @@ public class CommandeCriteria implements Serializable, Criteria {
 
     public void setClientId(LongFilter clientId) {
         this.clientId = clientId;
+    }
+
+    public LongFilter getProduitId() {
+        return produitId;
+    }
+
+    public LongFilter produitId() {
+        if (produitId == null) {
+            produitId = new LongFilter();
+        }
+        return produitId;
+    }
+
+    public void setProduitId(LongFilter produitId) {
+        this.produitId = produitId;
     }
 
     public Boolean getDistinct() {
@@ -109,13 +127,14 @@ public class CommandeCriteria implements Serializable, Criteria {
             Objects.equals(idCommande, that.idCommande) &&
             Objects.equals(dateCommande, that.dateCommande) &&
             Objects.equals(clientId, that.clientId) &&
+            Objects.equals(produitId, that.produitId) &&
             Objects.equals(distinct, that.distinct)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idCommande, dateCommande, clientId, distinct);
+        return Objects.hash(idCommande, dateCommande, clientId, produitId, distinct);
     }
 
     // prettier-ignore
@@ -125,6 +144,7 @@ public class CommandeCriteria implements Serializable, Criteria {
             (idCommande != null ? "idCommande=" + idCommande + ", " : "") +
             (dateCommande != null ? "dateCommande=" + dateCommande + ", " : "") +
             (clientId != null ? "clientId=" + clientId + ", " : "") +
+            (produitId != null ? "produitId=" + produitId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }

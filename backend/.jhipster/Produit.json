@@ -7,25 +7,30 @@
     {
       "fieldName": "idProduit",
       "fieldType": "Long",
+      "fieldValidateRules": ["required"],
       "options": {
         "id": true
       }
     },
     {
       "fieldName": "nomProduit",
-      "fieldType": "String"
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "descriptionProduit",
-      "fieldType": "String"
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "prixProduit",
-      "fieldType": "Double"
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "imageProduit",
-      "fieldType": "String"
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
     }
   ],
   "jpaMetamodelFiltering": true,
@@ -35,12 +40,6 @@
     {
       "otherEntityName": "categorie",
       "relationshipName": "categorie",
-      "relationshipSide": "left",
-      "relationshipType": "many-to-one"
-    },
-    {
-      "otherEntityName": "commande",
-      "relationshipName": "commande",
       "relationshipSide": "left",
       "relationshipType": "many-to-one"
     }

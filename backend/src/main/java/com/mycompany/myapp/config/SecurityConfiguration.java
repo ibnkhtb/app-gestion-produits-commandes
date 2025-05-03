@@ -44,6 +44,24 @@ public class SecurityConfiguration {
                 authz
                     .requestMatchers(mvc.pattern(HttpMethod.POST, "/api/authenticate")).permitAll()
                     .requestMatchers(mvc.pattern(HttpMethod.GET, "/api/authenticate")).permitAll()
+                    
+                    // accès aux catégories sans authentification
+                    .requestMatchers(mvc.pattern(HttpMethod.GET, "/api/categories/**")).permitAll()
+                     
+                   // accès aux produits sans authentification
+                    .requestMatchers(mvc.pattern(HttpMethod.GET, "/api/produits/**")).permitAll()
+                    
+                   // accès aux commandes sans authentification
+                    .requestMatchers(mvc.pattern(HttpMethod.GET, "/api/commandes/**")).permitAll()
+                    
+                 // accès aux commandes sans authentification
+                    .requestMatchers(mvc.pattern(HttpMethod.GET, "/api/clients/**")).permitAll()
+                  
+                   // accès aux commandes sans authentification
+                    .requestMatchers(mvc.pattern(HttpMethod.GET, "/api/users/**")).permitAll()
+                    
+                    .requestMatchers(mvc.pattern(HttpMethod.POST, "/api/produits/upload-image")).hasAuthority(AuthoritiesConstants.ADMIN) 
+                    
                     .requestMatchers(mvc.pattern("/api/register")).permitAll()
                     .requestMatchers(mvc.pattern("/api/activate")).permitAll()
                     .requestMatchers(mvc.pattern("/api/account/reset-password/init")).permitAll()
@@ -56,6 +74,10 @@ public class SecurityConfiguration {
                     .requestMatchers(mvc.pattern("/management/info")).permitAll()
                     .requestMatchers(mvc.pattern("/management/prometheus")).permitAll()
                     .requestMatchers(mvc.pattern("/management/**")).hasAuthority(AuthoritiesConstants.ADMIN)
+                    
+                   
+                   
+
             )
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .exceptionHandling(exceptions ->

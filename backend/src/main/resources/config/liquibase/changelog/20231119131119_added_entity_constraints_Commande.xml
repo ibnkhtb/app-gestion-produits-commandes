@@ -14,5 +14,12 @@
                                  referencedColumnNames="id_client"
                                  referencedTableName="client"
                                  />
+
+        <addForeignKeyConstraint baseColumnNames="produit_id_produit"
+                                 baseTableName="commande"
+                                 constraintName="fk_commande__produit_id"
+                                 referencedColumnNames="id_produit"
+                                 referencedTableName="produit"
+                                 />
     </changeSet>
 </databaseChangeLog>

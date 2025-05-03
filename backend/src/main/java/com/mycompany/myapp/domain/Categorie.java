@@ -1,6 +1,7 @@
 package com.mycompany.myapp.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -16,12 +17,14 @@ public class Categorie implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+   // @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_categorie")
+    @Column(name = "id_categorie", nullable = false)
     private Long idCategorie;
 
-    @Column(name = "nom_categorie")
+    @NotNull
+    @Column(name = "nom_categorie", nullable = false)
     private String nomCategorie;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

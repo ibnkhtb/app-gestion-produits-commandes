@@ -17,6 +17,9 @@
 ---
 # Conditionally disable springdoc on missing api-docs profile
 spring:
+  cors:
+     allowed-origins: "*"
+     allowed-methods: "*"
   config:
     activate:
       on-profile: '!api-docs'
@@ -158,6 +161,7 @@ server:
     session:
       cookie:
         http-only: true
+
 
 springdoc:
   show-actuator: true

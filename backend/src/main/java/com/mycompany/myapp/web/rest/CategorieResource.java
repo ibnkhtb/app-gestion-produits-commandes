@@ -6,6 +6,8 @@ import com.mycompany.myapp.service.CategorieService;
 import com.mycompany.myapp.service.criteria.CategorieCriteria;
 import com.mycompany.myapp.service.dto.CategorieDTO;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -62,7 +64,7 @@ public class CategorieResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("")
-    public ResponseEntity<CategorieDTO> createCategorie(@RequestBody CategorieDTO categorieDTO) throws URISyntaxException {
+    public ResponseEntity<CategorieDTO> createCategorie(@Valid @RequestBody CategorieDTO categorieDTO) throws URISyntaxException {
         log.debug("REST request to save Categorie : {}", categorieDTO);
         if (categorieDTO.getIdCategorie() != null) {
             throw new BadRequestAlertException("A new categorie cannot already have an ID", ENTITY_NAME, "idexists");
@@ -87,7 +89,7 @@ public class CategorieResource {
     @PutMapping("/{idCategorie}")
     public ResponseEntity<CategorieDTO> updateCategorie(
         @PathVariable(value = "idCategorie", required = false) final Long idCategorie,
-        @RequestBody CategorieDTO categorieDTO
+        @Valid @RequestBody CategorieDTO categorieDTO
     ) throws URISyntaxException {
         log.debug("REST request to update Categorie : {}, {}", idCategorie, categorieDTO);
         if (categorieDTO.getIdCategorie() == null) {
@@ -122,7 +124,7 @@ public class CategorieResource {
     @PatchMapping(value = "/{idCategorie}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<CategorieDTO> partialUpdateCategorie(
         @PathVariable(value = "idCategorie", required = false) final Long idCategorie,
-        @RequestBody CategorieDTO categorieDTO
+        @NotNull @RequestBody CategorieDTO categorieDTO
     ) throws URISyntaxException {
         log.debug("REST request to partial update Categorie partially : {}, {}", idCategorie, categorieDTO);
         if (categorieDTO.getIdCategorie() == null) {

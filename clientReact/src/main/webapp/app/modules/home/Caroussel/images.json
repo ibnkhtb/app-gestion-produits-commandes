@@ -1,0 +1,33 @@
+[
+    
+    {
+      "image": "https://sn.jumia.is/unsafe/fit-in/680x680/filters:fill(white)/product/27/027911/1.jpg?3283",
+      "title": " ",
+      "interval": 500
+    },
+    {
+      "image": "https://sn.jumia.is/unsafe/fit-in/680x680/filters:fill(white)/product/82/258911/1.jpg?0486",
+      "interval": 1000
+    },
+    {
+      "image": "https://www.dhresource.com/0x0/f2/albu/g17/M00/6E/41/rBVa4mImHL-AX0LiAAEq3Tef72Y101.jpg",
+      "interval": 500
+    }, 
+    {
+      "image": "../../../content/images/img3_carrousel.png",
+      "interval": 500
+    }, 
+     
+    {
+      "image": "https://sn.jumia.is/unsafe/fit-in/680x680/filters:fill(white)/product/46/922/1.jpg?9654",
+      "title": "",
+      "interval": 1500
+    },
+    {
+        "image": "https://sn.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/69/988511/1.jpg?5092",
+        "interval": 500
+      }
+
+        
+    
+  ]

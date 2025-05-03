@@ -1,7 +1,7 @@
 package com.mycompany.myapp.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -17,29 +17,30 @@ public class Produit implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    //@NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_produit")
+    @Column(name = "id_produit", nullable = false)
     private Long idProduit;
 
-    @Column(name = "nom_produit")
+    @NotNull
+    @Column(name = "nom_produit", nullable = false)
     private String nomProduit;
 
-    @Column(name = "description_produit")
+    @NotNull
+    @Column(name = "description_produit", nullable = false)
     private String descriptionProduit;
 
-    @Column(name = "prix_produit")
+    @NotNull
+    @Column(name = "prix_produit", nullable = false)
     private Double prixProduit;
 
-    @Column(name = "image_produit")
+    @NotNull
+    @Column(name = "image_produit", nullable = false)
     private String imageProduit;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Categorie categorie;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = { "client" }, allowSetters = true)
-    private Commande commande;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -118,19 +119,6 @@ public class Produit implements Serializable {
 
     public Produit categorie(Categorie categorie) {
         this.setCategorie(categorie);
-        return this;
-    }
-
-    public Commande getCommande() {
-        return this.commande;
-    }
-
-    public void setCommande(Commande commande) {
-        this.commande = commande;
-    }
-
-    public Produit commande(Commande commande) {
-        this.setCommande(commande);
         return this;
     }
 

@@ -91,6 +91,8 @@ public class AccountResource {
             .map(AdminUserDTO::new)
             .orElseThrow(() -> new AccountResourceException("User could not be found"));
     }
+    
+    
 
     /**
      * {@code POST  /account} : update the current user information.

@@ -1,7 +1,7 @@
 package com.mycompany.myapp.service.dto;
 
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
-import java.time.Instant;
 import java.util.Objects;
 
 /**
@@ -10,11 +10,15 @@ import java.util.Objects;
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class CommandeDTO implements Serializable {
 
+    //@NotNull
     private Long idCommande;
 
-    private Instant dateCommande;
+    @NotNull
+    private String dateCommande;
 
     private ClientDTO client;
+
+    private ProduitDTO produit;
 
     public Long getIdCommande() {
         return idCommande;
@@ -24,11 +28,11 @@ public class CommandeDTO implements Serializable {
         this.idCommande = idCommande;
     }
 
-    public Instant getDateCommande() {
+    public String getDateCommande() {
         return dateCommande;
     }
 
-    public void setDateCommande(Instant dateCommande) {
+    public void setDateCommande(String dateCommande) {
         this.dateCommande = dateCommande;
     }
 
@@ -38,6 +42,14 @@ public class CommandeDTO implements Serializable {
 
     public void setClient(ClientDTO client) {
         this.client = client;
+    }
+
+    public ProduitDTO getProduit() {
+        return produit;
+    }
+
+    public void setProduit(ProduitDTO produit) {
+        this.produit = produit;
     }
 
     @Override
@@ -68,6 +80,7 @@ public class CommandeDTO implements Serializable {
             "idCommande=" + getIdCommande() +
             ", dateCommande='" + getDateCommande() + "'" +
             ", client=" + getClient() +
+            ", produit=" + getProduit() +
             "}";
     }
 }

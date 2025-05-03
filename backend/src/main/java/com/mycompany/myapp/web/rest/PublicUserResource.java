@@ -1,9 +1,18 @@
 package com.mycompany.myapp.web.rest;
 
+import com.mycompany.myapp.config.Constants;
+import com.mycompany.myapp.domain.User;
+import com.mycompany.myapp.security.AuthoritiesConstants;
 import com.mycompany.myapp.service.UserService;
+import com.mycompany.myapp.service.UsernameAlreadyUsedException;
+import com.mycompany.myapp.service.dto.AdminUserDTO;
+import com.mycompany.myapp.service.dto.ProduitDTO;
 import com.mycompany.myapp.service.dto.UserDTO;
+
+import jakarta.validation.constraints.Pattern;
+
 import java.util.*;
-import java.util.Collections;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -12,9 +21,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.PaginationUtil;
+import tech.jhipster.web.util.ResponseUtil;
 
 @RestController
 @RequestMapping("/api")
@@ -53,7 +64,9 @@ public class PublicUserResource {
     private boolean onlyContainsAllowedProperties(Pageable pageable) {
         return pageable.getSort().stream().map(Sort.Order::getProperty).allMatch(ALLOWED_ORDERED_PROPERTIES::contains);
     }
-
+    
+     
+   
     /**
      * Gets a list of all roles.
      * @return a string list of all roles.
@@ -61,5 +74,14 @@ public class PublicUserResource {
     @GetMapping("/authorities")
     public List<String> getAuthorities() {
         return userService.getAuthorities();
+    }
+    
+    
+    
+    @GetMapping("/users/account/{id}")
+    public ResponseEntity<Optional<User>> getUser(@PathVariable Long id) {
+        log.debug("REST request to get Produit : {}", id);
+        Optional<User> userDTO = userService.getUserById(id);
+        return ResponseEntity.ok().body(userDTO);
     }
 }

@@ -1,13 +1,20 @@
 package com.mycompany.myapp.service;
 
+import com.mycompany.myapp.domain.Categorie;
 import com.mycompany.myapp.domain.Produit;
 import com.mycompany.myapp.repository.ProduitRepository;
+import com.mycompany.myapp.service.dto.CategorieDTO;
 import com.mycompany.myapp.service.dto.ProduitDTO;
 import com.mycompany.myapp.service.mapper.ProduitMapper;
+
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +32,7 @@ public class ProduitService {
 
     private final ProduitMapper produitMapper;
 
-    public ProduitService(ProduitRepository produitRepository, ProduitMapper produitMapper) {
+    public ProduitService(ProduitRepository produitRepository,  ProduitMapper produitMapper) {
         this.produitRepository = produitRepository;
         this.produitMapper = produitMapper;
     }
@@ -109,4 +116,25 @@ public class ProduitService {
         log.debug("Request to delete Produit : {}", id);
         produitRepository.deleteById(id);
     }
+    
+    
+    
+    public List<ProduitDTO> findProduitsByCategorie(Long idCategorie) {
+        return produitRepository.chercherProduitParCategorie(idCategorie).stream()
+                .map(produitMapper::toDto)
+                .collect(Collectors.toList());
+    }
+    
+    
+    public List<ProduitDTO> findProduitsTop() {
+    	Pageable pageable = PageRequest.of(0, 8);
+        return produitRepository.chercherTopProduits(pageable).stream()
+                .map(produitMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    
+
+
+    
 }

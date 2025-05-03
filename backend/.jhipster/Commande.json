@@ -7,13 +7,15 @@
     {
       "fieldName": "idCommande",
       "fieldType": "Long",
+      "fieldValidateRules": ["required"],
       "options": {
         "id": true
       }
     },
     {
       "fieldName": "dateCommande",
-      "fieldType": "Instant"
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
     }
   ],
   "jpaMetamodelFiltering": true,
@@ -23,6 +25,12 @@
     {
       "otherEntityName": "client",
       "relationshipName": "client",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "produit",
+      "relationshipName": "produit",
       "relationshipSide": "left",
       "relationshipType": "many-to-one"
     }

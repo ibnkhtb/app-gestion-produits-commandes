@@ -91,12 +91,21 @@ public class CommandeQueryService extends QueryService<Commande> {
                 specification = specification.and(buildRangeSpecification(criteria.getIdCommande(), Commande_.idCommande));
             }
             if (criteria.getDateCommande() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getDateCommande(), Commande_.dateCommande));
+                specification = specification.and(buildStringSpecification(criteria.getDateCommande(), Commande_.dateCommande));
             }
             if (criteria.getClientId() != null) {
                 specification =
                     specification.and(
                         buildSpecification(criteria.getClientId(), root -> root.join(Commande_.client, JoinType.LEFT).get(Client_.idClient))
+                    );
+            }
+            if (criteria.getProduitId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getProduitId(),
+                            root -> root.join(Commande_.produit, JoinType.LEFT).get(Produit_.idProduit)
+                        )
                     );
             }
         }

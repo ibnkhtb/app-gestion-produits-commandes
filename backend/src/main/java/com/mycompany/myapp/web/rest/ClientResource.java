@@ -1,11 +1,14 @@
 package com.mycompany.myapp.web.rest;
 
+import com.mycompany.myapp.domain.Client;
 import com.mycompany.myapp.repository.ClientRepository;
 import com.mycompany.myapp.service.ClientQueryService;
 import com.mycompany.myapp.service.ClientService;
 import com.mycompany.myapp.service.criteria.ClientCriteria;
 import com.mycompany.myapp.service.dto.ClientDTO;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -58,7 +61,7 @@ public class ClientResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("")
-    public ResponseEntity<ClientDTO> createClient(@RequestBody ClientDTO clientDTO) throws URISyntaxException {
+    public ResponseEntity<ClientDTO> createClient(@Valid @RequestBody ClientDTO clientDTO) throws URISyntaxException {
         log.debug("REST request to save Client : {}", clientDTO);
         if (clientDTO.getIdClient() != null) {
             throw new BadRequestAlertException("A new client cannot already have an ID", ENTITY_NAME, "idexists");
@@ -83,7 +86,7 @@ public class ClientResource {
     @PutMapping("/{idClient}")
     public ResponseEntity<ClientDTO> updateClient(
         @PathVariable(value = "idClient", required = false) final Long idClient,
-        @RequestBody ClientDTO clientDTO
+        @Valid @RequestBody ClientDTO clientDTO
     ) throws URISyntaxException {
         log.debug("REST request to update Client : {}, {}", idClient, clientDTO);
         if (clientDTO.getIdClient() == null) {
@@ -118,7 +121,7 @@ public class ClientResource {
     @PatchMapping(value = "/{idClient}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<ClientDTO> partialUpdateClient(
         @PathVariable(value = "idClient", required = false) final Long idClient,
-        @RequestBody ClientDTO clientDTO
+        @NotNull @RequestBody ClientDTO clientDTO
     ) throws URISyntaxException {
         log.debug("REST request to partial update Client partially : {}, {}", idClient, clientDTO);
         if (clientDTO.getIdClient() == null) {
@@ -184,6 +187,13 @@ public class ClientResource {
         return ResponseUtil.wrapOrNotFound(clientDTO);
     }
 
+    
+    @GetMapping("/user/{id}")
+    public int getClientByUserId(@PathVariable Long id) {
+        log.debug("REST request to get Client : {}", id);
+         int idclient = clientService.findClientByUserId(id);
+        return idclient;
+    }
     /**
      * {@code DELETE  /clients/:id} : delete the "id" client.
      *
@@ -199,4 +209,6 @@ public class ClientResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
+    
+    
 }

@@ -4,7 +4,11 @@ import com.mycompany.myapp.domain.Commande;
 import com.mycompany.myapp.repository.CommandeRepository;
 import com.mycompany.myapp.service.dto.CommandeDTO;
 import com.mycompany.myapp.service.mapper.CommandeMapper;
+
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -108,5 +112,14 @@ public class CommandeService {
     public void delete(Long id) {
         log.debug("Request to delete Commande : {}", id);
         commandeRepository.deleteById(id);
+    }
+    
+    
+    @Transactional(readOnly = true)
+    public List<CommandeDTO> findListCommandesDetaitls() {
+        log.debug("Request to get all Commandes");
+        return commandeRepository.chercherListeCommandesDetails().stream()
+                .map(commandeMapper::toDto)
+                .collect(Collectors.toList());
     }
 }

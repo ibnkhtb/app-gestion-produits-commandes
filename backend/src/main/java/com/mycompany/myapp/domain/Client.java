@@ -1,6 +1,7 @@
 package com.mycompany.myapp.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -16,24 +17,30 @@ public class Client implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    //@NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_client")
+    @Column(name = "id_client", nullable = false)
     private Long idClient;
 
-    @Column(name = "nom")
+    @NotNull
+    @Column(name = "nom", nullable = false)
     private String nom;
 
-    @Column(name = "prenom")
+    @NotNull
+    @Column(name = "prenom", nullable = false)
     private String prenom;
 
-    @Column(name = "adresse")
+    @NotNull
+    @Column(name = "adresse", nullable = false)
     private String adresse;
 
-    @Column(name = "telephone")
+    @NotNull
+    @Column(name = "telephone", nullable = false)
     private String telephone;
 
-    @Column(name = "email")
+    @NotNull
+    @Column(name = "email", nullable = false)
     private String email;
 
     @OneToOne(fetch = FetchType.LAZY)

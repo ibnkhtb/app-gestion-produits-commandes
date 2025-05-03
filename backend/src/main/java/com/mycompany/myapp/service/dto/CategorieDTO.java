@@ -1,5 +1,6 @@
 package com.mycompany.myapp.service.dto;
 
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -9,8 +10,10 @@ import java.util.Objects;
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class CategorieDTO implements Serializable {
 
+    //@NotNull
     private Long idCategorie;
 
+    @NotNull
     private String nomCategorie;
 
     public Long getIdCategorie() {

@@ -1,0 +1,18 @@
+.carousel .carousel-indicators button {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.carousel .carousel-control-next-icon.changed {
+    background-color: rgb(40, 60, 80);
+}
+
+/* CSS pour le carrousel */
+.carousel-img {
+    height: 400px;
+    width: 50%;
+    margin: 0 auto; 
+    display: block;
+  }
+  

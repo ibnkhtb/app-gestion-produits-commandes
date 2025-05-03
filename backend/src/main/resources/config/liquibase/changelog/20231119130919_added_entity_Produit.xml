@@ -15,21 +15,18 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="nom_produit" type="varchar(255)">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
             <column name="description_produit" type="varchar(255)">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
             <column name="prix_produit" type="double">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
             <column name="image_produit" type="varchar(255)">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
             <column name="categorie_id_categorie" type="bigint">
-                <constraints nullable="true" />
-            </column>
-            <column name="commande_id_commande" type="bigint">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->

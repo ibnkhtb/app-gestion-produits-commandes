@@ -1,0 +1,22 @@
+{
+  "generator-jhipster": {
+    "baseName": "clientReact",
+    "clientFramework": "react",
+    "clientTestFrameworks": [],
+    "clientTheme": "none",
+    "creationTimestamp": 1700403623311,
+    "devServerPort": 9060,
+    "enableTranslation": true,
+    "entities": [],
+    "jhipsterVersion": "8.0.0",
+    "languages": ["fr", "en"],
+    "microfrontend": null,
+    "microfrontends": [],
+    "monorepository": true,
+    "nativeLanguage": "fr",
+    "skipCommitHook": true,
+    "skipServer": true,
+    "testFrameworks": [],
+    "withAdminUi": true
+  }
+}

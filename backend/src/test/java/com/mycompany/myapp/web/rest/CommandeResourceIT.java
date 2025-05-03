@@ -8,12 +8,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.mycompany.myapp.IntegrationTest;
 import com.mycompany.myapp.domain.Client;
 import com.mycompany.myapp.domain.Commande;
+import com.mycompany.myapp.domain.Produit;
 import com.mycompany.myapp.repository.CommandeRepository;
 import com.mycompany.myapp.service.dto.CommandeDTO;
 import com.mycompany.myapp.service.mapper.CommandeMapper;
 import jakarta.persistence.EntityManager;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
@@ -34,8 +33,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class CommandeResourceIT {
 
-    private static final Instant DEFAULT_DATE_COMMANDE = Instant.ofEpochMilli(0L);
-    private static final Instant UPDATED_DATE_COMMANDE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    private static final String DEFAULT_DATE_COMMANDE = "AAAAAAAAAA";
+    private static final String UPDATED_DATE_COMMANDE = "BBBBBBBBBB";
 
     private static final String ENTITY_API_URL = "/api/commandes";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{idCommande}";
@@ -122,6 +121,24 @@ class CommandeResourceIT {
 
     @Test
     @Transactional
+    void checkDateCommandeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = commandeRepository.findAll().size();
+        // set the field null
+        commande.setDateCommande(null);
+
+        // Create the Commande, which fails.
+        CommandeDTO commandeDTO = commandeMapper.toDto(commande);
+
+        restCommandeMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(commandeDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Commande> commandeList = commandeRepository.findAll();
+        assertThat(commandeList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllCommandes() throws Exception {
         // Initialize the database
         commandeRepository.saveAndFlush(commande);
@@ -132,7 +149,7 @@ class CommandeResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].idCommande").value(hasItem(commande.getIdCommande().intValue())))
-            .andExpect(jsonPath("$.[*].dateCommande").value(hasItem(DEFAULT_DATE_COMMANDE.toString())));
+            .andExpect(jsonPath("$.[*].dateCommande").value(hasItem(DEFAULT_DATE_COMMANDE)));
     }
 
     @Test
@@ -147,7 +164,7 @@ class CommandeResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.idCommande").value(commande.getIdCommande().intValue()))
-            .andExpect(jsonPath("$.dateCommande").value(DEFAULT_DATE_COMMANDE.toString()));
+            .andExpect(jsonPath("$.dateCommande").value(DEFAULT_DATE_COMMANDE));
     }
 
     @Test
@@ -209,6 +226,32 @@ class CommandeResourceIT {
 
     @Test
     @Transactional
+    void getAllCommandesByDateCommandeContainsSomething() throws Exception {
+        // Initialize the database
+        commandeRepository.saveAndFlush(commande);
+
+        // Get all the commandeList where dateCommande contains DEFAULT_DATE_COMMANDE
+        defaultCommandeShouldBeFound("dateCommande.contains=" + DEFAULT_DATE_COMMANDE);
+
+        // Get all the commandeList where dateCommande contains UPDATED_DATE_COMMANDE
+        defaultCommandeShouldNotBeFound("dateCommande.contains=" + UPDATED_DATE_COMMANDE);
+    }
+
+    @Test
+    @Transactional
+    void getAllCommandesByDateCommandeNotContainsSomething() throws Exception {
+        // Initialize the database
+        commandeRepository.saveAndFlush(commande);
+
+        // Get all the commandeList where dateCommande does not contain DEFAULT_DATE_COMMANDE
+        defaultCommandeShouldNotBeFound("dateCommande.doesNotContain=" + DEFAULT_DATE_COMMANDE);
+
+        // Get all the commandeList where dateCommande does not contain UPDATED_DATE_COMMANDE
+        defaultCommandeShouldBeFound("dateCommande.doesNotContain=" + UPDATED_DATE_COMMANDE);
+    }
+
+    @Test
+    @Transactional
     void getAllCommandesByClientIsEqualToSomething() throws Exception {
         Client client;
         if (TestUtil.findAll(em, Client.class).isEmpty()) {
@@ -229,6 +272,28 @@ class CommandeResourceIT {
         defaultCommandeShouldNotBeFound("clientId.equals=" + (clientId + 1));
     }
 
+    @Test
+    @Transactional
+    void getAllCommandesByProduitIsEqualToSomething() throws Exception {
+        Produit produit;
+        if (TestUtil.findAll(em, Produit.class).isEmpty()) {
+            commandeRepository.saveAndFlush(commande);
+            produit = ProduitResourceIT.createEntity(em);
+        } else {
+            produit = TestUtil.findAll(em, Produit.class).get(0);
+        }
+        em.persist(produit);
+        em.flush();
+        commande.setProduit(produit);
+        commandeRepository.saveAndFlush(commande);
+        Long produitId = produit.getIdProduit();
+        // Get all the commandeList where produit equals to produitId
+        defaultCommandeShouldBeFound("produitId.equals=" + produitId);
+
+        // Get all the commandeList where produit equals to (produitId + 1)
+        defaultCommandeShouldNotBeFound("produitId.equals=" + (produitId + 1));
+    }
+
     /**
      * Executes the search, and checks that the default entity is returned.
      */
@@ -238,7 +303,7 @@ class CommandeResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].idCommande").value(hasItem(commande.getIdCommande().intValue())))
-            .andExpect(jsonPath("$.[*].dateCommande").value(hasItem(DEFAULT_DATE_COMMANDE.toString())));
+            .andExpect(jsonPath("$.[*].dateCommande").value(hasItem(DEFAULT_DATE_COMMANDE)));
 
         // Check, that the count call also returns 1
         restCommandeMockMvc
@@ -381,8 +446,6 @@ class CommandeResourceIT {
         Commande partialUpdatedCommande = new Commande();
         partialUpdatedCommande.setIdCommande(commande.getIdCommande());
 
-        partialUpdatedCommande.dateCommande(UPDATED_DATE_COMMANDE);
-
         restCommandeMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedCommande.getIdCommande())
@@ -395,7 +458,7 @@ class CommandeResourceIT {
         List<Commande> commandeList = commandeRepository.findAll();
         assertThat(commandeList).hasSize(databaseSizeBeforeUpdate);
         Commande testCommande = commandeList.get(commandeList.size() - 1);
-        assertThat(testCommande.getDateCommande()).isEqualTo(UPDATED_DATE_COMMANDE);
+        assertThat(testCommande.getDateCommande()).isEqualTo(DEFAULT_DATE_COMMANDE);
     }
 
     @Test

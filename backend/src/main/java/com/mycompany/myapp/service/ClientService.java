@@ -109,4 +109,12 @@ public class ClientService {
         log.debug("Request to delete Client : {}", id);
         clientRepository.deleteById(id);
     }
+    
+    
+    @Transactional(readOnly = true)
+    public int findClientByUserId(Long id) {
+        log.debug("Request to get Client : {}", id);
+         int c = clientRepository.findClientByUserId(id);
+        return c ;
+    }
 }

@@ -1,5 +1,6 @@
 package com.mycompany.myapp.service.dto;
 
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -9,19 +10,22 @@ import java.util.Objects;
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class ProduitDTO implements Serializable {
 
+   // @NotNull
     private Long idProduit;
 
+    @NotNull
     private String nomProduit;
 
+    @NotNull
     private String descriptionProduit;
 
+    @NotNull
     private Double prixProduit;
 
+    @NotNull
     private String imageProduit;
 
     private CategorieDTO categorie;
-
-    private CommandeDTO commande;
 
     public Long getIdProduit() {
         return idProduit;
@@ -71,14 +75,6 @@ public class ProduitDTO implements Serializable {
         this.categorie = categorie;
     }
 
-    public CommandeDTO getCommande() {
-        return commande;
-    }
-
-    public void setCommande(CommandeDTO commande) {
-        this.commande = commande;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -110,7 +106,6 @@ public class ProduitDTO implements Serializable {
             ", prixProduit=" + getPrixProduit() +
             ", imageProduit='" + getImageProduit() + "'" +
             ", categorie=" + getCategorie() +
-            ", commande=" + getCommande() +
             "}";
     }
 }

@@ -111,15 +111,6 @@ public class ProduitQueryService extends QueryService<Produit> {
                         )
                     );
             }
-            if (criteria.getCommandeId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(
-                            criteria.getCommandeId(),
-                            root -> root.join(Produit_.commande, JoinType.LEFT).get(Commande_.idCommande)
-                        )
-                    );
-            }
         }
         return specification;
     }

@@ -1,31 +1,31 @@
 // Déclaration des entités
 entity Categorie{
     @Id
-    idCategorie Long,
-    nomCategorie String 
+    idCategorie Long required,
+    nomCategorie String required
 }
 entity Produit{
     @Id
-    idProduit Long,
-    nomProduit String ,
-    descriptionProduit String ,
-    prixProduit Double ,
-    imageProduit String
+    idProduit Long required,
+    nomProduit String required ,
+    descriptionProduit String required ,
+    prixProduit Double required,
+    imageProduit String required
 } 
 entity Client {
     @Id
-    idClient Long,
-    nom String ,
-    prenom String ,
-    adresse String ,
-    telephone  String ,
-    email String
+    idClient Long required,
+    nom String required,
+    prenom String required ,
+    adresse String required,
+    telephone  String required,
+    email String required
 }
 
 entity Commande {
     @Id
-    idCommande Long,
-    dateCommande Instant 
+    idCommande Long required,
+    dateCommande String required 
 }
 
 // Relations
@@ -42,7 +42,7 @@ relationship ManyToOne {
 }
 
 relationship ManyToOne {
-    Produit{commande} to Commande
+    Commande{produit} to Produit
 }
 
 
